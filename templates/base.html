@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>News Recommendation</title>
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+        <link rel="stylesheet" href="{% static 'css/pageturn.css' %}">
+        {% block custom_css %}{% endblock %}
+</head>
+
+
+<body>
+<div class="nav-menu">
+            <div class="news-info">
+                <div class="nav-con fl">
+                    <span class="logo" onclick="window.location.href='{% url 'index' %}'">news recommendation</span>
+                </div>
+                <div class="nav-con fr">
+                    {% if request.user.is_authenticated %}
+
+                        <ul class="user-login">
+                            <li class="nav-item">
+                                <a class="t" href="{% url 'logout' %}">退出</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="t" href="{% url 'history' %}">历史浏览</a>
+                            </li>
+                            <li class="nav-item user" style=" font-size: 15px; height: 42px; line-height: 42px; color: #757575;">
+                                <span class="wel">欢迎登录,{{ user.username }}</span>
+                            </li>
+                        </ul>
+
+                            {% else %}
+                        <ul class="user not-login">
+                        <li class="nav-item register">
+                            <span onclick="window.location.href='{% url 'register' %}'" title="注册" target="_blank" class="t">注册</span>
+                        </li>
+                        <li class="nav-item login">
+                            <span onclick="window.location.href='{% url 'login' %}'" title="登录" target="_blank" class="t">登录   </span>|
+                        </li>
+                    </ul>
+
+                    {% endif %}
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+{% block content %}
+{% endblock %}
+
+
+ <div class="footer">
+            <div class="footer-content">
+                <p class="copyright">Copyright © news recommendation 2017 All Rights Reserved</p>
+            </div>
+        </div>
+
+
+
+{% block custom_js %}{% endblock %}
+</body>
+</html>

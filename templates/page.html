@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="bg">
+        <img src="{% static 'image/top-mask.png' %}" alt="天空" class="mask">
+    </div>
+  <div class="home-app">
+        <div class="post">
+            <h2 class="post-title1">{{ new.title }}</h2>
+            <div class="reading-info">
+                <ul class="post-info">
+                    <li class="post-item">
+                        <span class="tag">{{ new.tag }}</span>
+                        <span class="num">浏览次数:
+                            <span class="number">{{ new.click_nums }}</span>
+                        </span>
+                        <span class="num">时间:
+                            <span class="">{{ new.create_time }}</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="post-content">
+                {{ new.content }}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+{% endblock %}

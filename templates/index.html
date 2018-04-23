@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/pageturn.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="bg">
+        <img src="{% static 'image/top-mask.png' %}" alt="天空" class="mask">
+    </div>
+    <div class="nr-wrap">
+		<div class="primary_menu" id="primary_menu">
+			<ul class="nav-menu-list">
+				<li class="nav-item home">
+					<a href="?type=re" class="nav-link">
+						<div class="num-wrap ">
+							<span class="num">{{ re_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 're' %}active{% endifequal %}">推荐</div>
+					</a>
+				</li>
+				<li class="nav-item home">
+					<a href="?type=" class="nav-link">
+						<div class="num-wrap">
+							<span class="num">{{ all_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type '' %}active{% endifequal %}">全部</div>
+					</a>
+				</li>
+				<li class="nav-item home">
+					<a href="?type=politics" class="nav-link">
+						<div class="num-wrap">
+							<span class="num">{{ politics_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 'politics' %}active{% endifequal %}">时政</div>
+					</a>
+				</li>
+				<li class="nav-item home">
+					<a href="?type=fortune" class="nav-link">
+						<div class="num-wrap">
+							<span class="num">{{ fortune_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 'fortune' %}active{% endifequal %}">经济</div>
+					</a>
+				</li>
+				<li class="nav-item home">
+					<a href="?type=mil" class="nav-link">
+						<div class="num-wrap">
+							<span class="num">{{ mil_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 'mil' %}active{% endifequal %}">军事</div>
+					</a>
+				</li>
+				<li class="nav-item home">
+					<a href="?type=legal" class="nav-link">
+						<div class="num-wrap">
+						<span class="num">{{ legal_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 'legal' %}active{% endifequal %}">法制</div>
+					</a>
+				</li>
+				<li class="nav-item home">
+					<a href="?type=tech" class="nav-link">
+						<div class="num-wrap">
+							<span class="num">{{ tech_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 'tech' %}active{% endifequal %}">科技</div>
+					</a>
+				</li>
+                <li class="nav-item home">
+					<a href="?type=local" class="nav-link">
+						<div class="num-wrap">
+							<span class="num">{{ local_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 'local' %}active{% endifequal %}">地方</div>
+					</a>
+				</li>
+                <li class="nav-item home">
+					<a href="?type=house" class="nav-link">
+						<div class="num-wrap">
+							<span class="num">{{ house_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 'house' %}active{% endifequal %}">房产</div>
+					</a>
+				</li>
+                <li class="nav-item home">
+					<a href="?type=food" class="nav-link">
+						<div class="num-wrap">
+							<span class="num">{{ food_num }}</span>
+						</div>
+						<div class="nav-name {% ifequal type 'food' %}active{% endifequal %}">食物</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+    <div class="home-app">
+    {% ifequal type 're' %}
+        {% for new in all_news.object_list %}
+                <div class="post-preview">
+{#                    <a href="{% url 'page'  new.id %}" class="a-title">#}
+                        <a href="{% url 'page'  new.new.id %}" class="post-title">{{ new.new.title }}</a>
+{#                    </a>#}
+                    <div class="reading-info">
+                        <ul class="post-info">
+                            <li class="post-item">
+                                <span class="tag">{{ new.new.create_time }}</span>
+                                <span class="num">浏览次数:
+                                    <span class="number">{{ new.new.click_nums }}</span>
+                                </span>
+                            </li>
+                        </ul>
+                </div>
+                    <div class="post-content-preview">
+                        {{ new.new.abstract }}
+                    </div>
+            </div>
+            {% endfor %}
+    {% else %}
+        {% for new in all_news.object_list %}
+                <div class="post-preview">
+{#                    <a href="{% url 'page'  new.id %}" class="a-title">#}
+                        <a href="{% url 'page'  new.id %}" class="post-title">{{ new.title }}</a>
+{#                    </a>#}
+                    <div class="reading-info">
+                        <ul class="post-info">
+                            <li class="post-item">
+                                <span class="tag">{{ new.create_time }}</span>
+                                <span class="num">浏览次数:
+                                    <span class="number">{{ new.click_nums }}</span>
+                                </span>
+                            </li>
+                        </ul>
+                </div>
+                    <div class="post-content-preview">
+                        {{ new.abstract }}
+                    </div>
+            </div>
+            {% endfor %}
+    {% endifequal %}
+    </div>
+
+    <div class="pageturn">
+        <ul class="pagelist">
+            {% if all_news.has_previous %}
+                <li class="long pre"><a href="?{{ all_news.previous_page_number.querystring }}" class="page">上一页</a></li>
+            {% endif %}
+
+                {% for page in all_news.pages %}
+                {% if page %}
+                    {% ifequal page all_news.number %}
+                        <li class="active pages"><a href="?{{ page.querystring }}" class="active page">{{ page }}</a></li>
+                    {% else %}
+                        <li class="pages"><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                    {% endifequal %}
+                {% else %}
+                    <li class="none"><a href="">...</a></li>
+                {% endif %}
+                {% endfor %}
+
+
+            {% if all_news.has_next %}
+                 <li class="long"><a href="?{{ all_news.next_page_number.querystring }}" class="page">下一页</a></li>
+            {% endif %}
+        </ul>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+{% endblock %}

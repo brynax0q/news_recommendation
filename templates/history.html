@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/pageturn.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="bg">
+        <img src="{% static 'image/top-mask.png' %}" alt="天空" class="mask">
+    </div>
+    <div class="home-app">
+            {% for watch in user_watches %}
+                <div class="post-preview">
+                    <a href="{% url 'page'  watch.new.id %}" class="a-title">
+                        <span class="post-title">{{ watch.new.title }}</span>
+                    </a>
+                    <div class="reading-info">
+                        <ul class="post-info">
+                            <li class="post-item">
+                                <span class="tag">浏览时间：{{ watch.add_time }}</span>
+                                <span class="num">
+                                    <span class="number">{{ watch.new.tag }}</span>
+                                </span>
+                            </li>
+                        </ul>
+                </div>
+{#                    <div class="post-content-preview">#}
+{#                        {{ watch.new.abstract }}#}
+{#                    </div>#}
+            </div>
+            {% endfor %}
+    </div>
+{% endblock %}

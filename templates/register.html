@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+
+<body>
+    <div class="nav-menu">
+        <div class="news-info">
+            <div class="nav-con">
+                <span class="logo" onclick="window.location.href='{% url 'index' %}'">news recommendation</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="bg">
+            <img src="{% static 'image/top-mask.png' %}" alt="天空" class="mask">
+    </div>
+    <div class="login">
+        <div class="login-box">
+            <div class="error-item">
+              <i class="fa fa-minus-circle error-icon"></i>
+              <p class="err-msg"></p>
+            </div>
+            <div class="user-item">
+                <label class="user-label" for="username">
+                    <i class="fa fa-user"></i>
+                </label>
+                <input class="user-content" id="username" placeholder="请输入用户名" autocomplete="off" />
+            </div>
+            <div class="user-item">
+                <label class="user-label" for="password">
+                    <i class="fa fa-lock"></i>
+                </label>
+                <input type="password" class="user-content" id="password" placeholder="请输入密码" autocomplete="off" />
+            </div>
+            <div class="user-item">
+                <label class="user-label" for="password-confirm">
+                    <i class="fa fa-lock"></i>
+                </label>
+                <input type="password" class="user-content" id="password-confirm" placeholder="请再次输入密码" autocomplete="off" />
+            </div>
+            <div class="link-item">
+                <div class="link" id="rg" target="_blank">注册</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-content">
+            <p class="copyright">Copyright © news recommendation 2017 All Rights Reserved</p>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'js/register.js' %}"></script>
+</body>
+
+</html>

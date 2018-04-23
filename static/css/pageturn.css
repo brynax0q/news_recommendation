@@ -1,0 +1,43 @@
+.pageturn{
+    width: 100%;
+    background: #fff;
+    margin:2px 0;
+}
+
+
+.pageturn .pagelist{
+    list-style: none;
+    margin:0 auto;
+    height:42px;
+    line-height:42px;
+    width:885px;
+}
+
+.pageturn .pagelist li{
+    float: left;
+    margin: 0 9px;
+    padding: 1px 2px;
+    height: 17px;
+    line-height: 19px;
+
+}
+
+.pageturn .pagelist li .page{
+    color: #222222;
+    font-size: 14px;
+}
+
+.pageturn .pagelist li.pre{
+    margin-left:110px;
+}
+
+
+
+.pageturn .pagelist .pages.active{
+    background: #FF4500;
+    padding: 1px 4px 3px 2px;
+}
+
+.pageturn .pagelist .pages .active{
+    color: #fff;
+}
