@@ -4,6 +4,7 @@ from .models import News, Init_News
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from operation.models import UserWatch
 from users.models import UserProfile
+from django.http import HttpResponse
 from datetime import datetime
 import threading
 
@@ -24,6 +25,9 @@ t = {
 
 class NewListView(View):
     def get(self, request):
+
+        print(request.user)
+
         all_news = News.objects.all().order_by("-create_time")
         all_num = all_news.count()
 
@@ -52,12 +56,14 @@ class NewListView(View):
         food_num = food_news.count()
 
         all_re_news = Init_News.objects.all().order_by("id")
-        re_news = all_re_news.filter(user=request.user)
-        re_num = re_news.count()
+        if request.user.is_authenticated():
+            re_news = all_re_news.filter(user=request.user)
+            re_num = re_news.count()
+        else:
+            re_num = 0
+            re_news = {}
 
         type = request.GET.get('type', "")
-
-
         if type == '':
             all_news = all_news
         elif type == 're':
@@ -124,7 +130,10 @@ class PageView(View):
         })
 
 class ReView(View):
-    def get(self, request):
+    def post(self, request):
+        # 判断用户是否登陆
+        if not request.user.is_authenticated():
+            return HttpResponse('{"status": "fail", "msg":"用户未登录"}', content_type='application/json')
+        print(request.user)
         threading.Thread(target=Re(request.user)).start()
-        list = NewListView()
-        return list.get(request)
+        return HttpResponse('{"status": "success", "msg":"收藏"}', content_type='application/json')

@@ -10,6 +10,7 @@
         <img src="{% static 'image/top-mask.png' %}" alt="天空" class="mask">
     </div>
     <div class="nr-wrap">
+        <div class="re_button">推荐</div>
 		<div class="primary_menu" id="primary_menu">
 			<ul class="nav-menu-list">
 				<li class="nav-item home">
@@ -168,4 +169,36 @@
 {% endblock %}
 
 {% block custom_js %}
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="application/javascript">
+    function recommendation(){
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url:"/re/",
+        data:{},
+        async: true,
+        beforeSend:function(xhr, settings){
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(data) {
+            if(data.status == 'fail'){
+                if(data.msg == '用户未登录'){
+                    window.location.href="/login/";
+                    alert("1");
+                }
+            }else if(data.status == 'success'){
+                alert("推荐成功！")
+            }
+        }
+    });
+}
+
+$('.re_button').on('click', function(){
+
+    recommendation();
+});
+
+    </script>
+
 {% endblock %}
